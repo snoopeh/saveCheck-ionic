@@ -26,11 +26,20 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'tab3',
+        path: 'about',
         children: [
           {
             path: '',
-            loadChildren: '../tab3/tab3.module#Tab3PageModule'
+            loadChildren: '../about/about.module#AboutPageModule'
+          }
+        ]
+      },
+      {
+        path: 'search',
+        children: [
+          {
+            path: '',
+            loadChildren: '../search/search.module#SearchPageModule'
           }
         ]
       },
