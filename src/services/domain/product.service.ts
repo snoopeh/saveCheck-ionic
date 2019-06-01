@@ -11,7 +11,10 @@ export class ProductService {
     {
     
     }
-    findAll(): Observable<ProductDTO[]>{
+    findAll(): Observable<ProductDTO[]>{ 
         return this.http.get<ProductDTO[]>(`${API_CONFIG.baseUrl}/product`);
+    }
+    findByName(name): Observable<ProductDTO[]>{
+        return this.http.get<ProductDTO[]>(`${API_CONFIG.baseUrl}/product/name/`+name);
     }
 }

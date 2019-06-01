@@ -44,6 +44,15 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'likes',
+        children: [
+          {
+            path: '',
+            loadChildren: '../likes/likes.module#LikesPageModule'
+          }
+        ]
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'
@@ -52,7 +61,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/search',
     pathMatch: 'full'
   }
 ];
