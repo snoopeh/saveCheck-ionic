@@ -17,4 +17,7 @@ export class BrandService {
     findByName(name): Observable<BrandDTO[]>{
         return this.http.get<BrandDTO[]>(`${API_CONFIG.baseUrl}/brand/name/`+name);
     }
+    findById(id): Observable<BrandDTO>{
+        return this.http.get<BrandDTO>(`${API_CONFIG.baseUrl}/brand/`+id);
+    }
 }

@@ -9,7 +9,7 @@ import { DetailPage } from './detail.page';
 
 const routes: Routes = [
   {
-    path: ':id',
+    path: ':id/:type',
     component: DetailPage
   }
 ];

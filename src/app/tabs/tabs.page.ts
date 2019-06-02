@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { API_CONFIG } from 'src/config/api.config';
 @Component({
   selector: 'app-tabs',
   templateUrl: 'tabs.page.html',
@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
 export class TabsPage {
 
   constructor() {}
-
+  imageUrl: string = API_CONFIG.baseUrl;
 }

@@ -12,19 +12,19 @@
 <ion-content>
   <ion-list>
     <ion-item ion-item *ngFor="let item of products">
-      <a href="/detail/{{item._id}}">
+      <a href="/tabs/detail/{{item._id}}/1">
         <ion-thumbnail *ngIf="item.productImage != undefined" item-start>
           <img src="{{imageUrl}}/{{item.productImage}}">
         </ion-thumbnail>
       </a>
-      <a href="/detail/{{item._id}}">
+      <a href="/tabs/detail/{{item._id}}/1">
         <ion-thumbnail *ngIf="item.productImage == undefined" item-start>
           <img src="{{imageUrl}}/uploads/noimage.png">
         </ion-thumbnail>
       </a>
       <ion-label class="ion-margin">
 
-        <a class="alink" href="/detail/{{item._id}}">
+        <a class="alink" href="/tabs/detail/{{item._id}}/1">
           <ion-text>
             {{item.name}}
           </ion-text>
@@ -44,31 +44,32 @@
             </ion-text>
           </a> </div>
       </ion-label>
-  
-          <div *ngIf="item.isVegan && item.isVeganVerify">
-              <img style="width: 90px;" src="{{imageUrl}}/uploads/Vegan(2).png">          
-          </div>
-        <div *ngIf="item.isCrueltFree && item.isCrueltFreeVerify">
-            <img  src="{{imageUrl}}/uploads/CF.png">          
-        </div>
+
+      <div *ngIf="item.isVegan && item.isVeganVerify">
+        <img style="width: 90px;" src="{{imageUrl}}/uploads/Vegan(2).png">
+      </div>
+      <div *ngIf="item.isCrueltFree && item.isCrueltFreeVerify && !item.isVegan && item.isVeganVerify">
+        <img src="{{imageUrl}}/uploads/CF.png">
+      </div>
     </ion-item>
 
+    <!-- BRAND -->
     <ion-item ion-item *ngFor="let item of brands">
 
-      <a href="/detail/{{item._id}}">
+      <a href="/tabs/detail/{{item._id}}/2">
         <ion-thumbnail *ngIf="item.brandImage != undefined" item-start>
           <img src="{{imageUrl}}/{{item.brandImage}}">
         </ion-thumbnail>
       </a>
 
-      <a href="/detail/{{item._id}}">
+      <a href="/tabs/detail/{{item._id}}/2">
         <ion-thumbnail *ngIf="item.brandImage == undefined" item-start>
           <img src="{{imageUrl}}/uploads/noimage.png">
         </ion-thumbnail>
       </a>
 
       <ion-label class="ion-margin">
-        <a class="alink" href="/detail/{{item._id}}">
+        <a class="alink" href="/tabs/detail/{{item._id}}/2">
           <ion-text>
             {{item.name}}
           </ion-text>
@@ -82,17 +83,17 @@
         </ion-icon>
         <ion-text style="font-size:11px; color:#666; margin-left:3px;">{{item.dislike.length}} </ion-text>
         <div style="margin-top:5px;"> <a href="/likes/{{item._id}}">
-          <ion-text style="font-size:11px;color:#666; ">
-            <p>Ver curtidas</p>
-          </ion-text>
-        </a> </div>
-      </ion-label> 
-      <div *ngIf="item.isVegan ">
-          <img style="width: 90px;" src="{{imageUrl}}/uploads/Vegan(2).png">          
+            <ion-text style="font-size:11px;color:#666; ">
+              <p>Ver curtidas</p>
+            </ion-text>
+          </a> </div>
+      </ion-label>
+      <div *ngIf="item.isVegan">
+        <img style="width: 90px;" src="{{imageUrl}}/uploads/Vegan(2).png">
       </div>
-    <div *ngIf="item.isCrueltFree ">
-        <img  src="{{imageUrl}}/uploads/CF.png">          
-    </div>
+      <div *ngIf="item.isCrueltFree ">
+        <img src="{{imageUrl}}/uploads/CF.png">
+      </div>
 
     </ion-item>
   </ion-list>

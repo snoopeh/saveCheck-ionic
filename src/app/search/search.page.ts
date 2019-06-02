@@ -26,33 +26,26 @@ export class SearchPage implements OnInit {
   brands: BrandDTO[];
   searchItens(ev) {
     var val = ev.target.value;
-    if (val.length > 3) {
+    if (val.length > 5) {
       this.productService.findByName(val)
         .subscribe(response => {
           this.products = response;
-          this.brands = null;
-        },
-          error => {
-            this.brandService.findByName(val)
-        .subscribe(response => {
-          this.brands = response;
-          this.products = null;
         },
           error => {
             this.products = null;
           });
-            this.products = null;
+      this.brandService.findByName(val)
+        .subscribe(response => {
+          this.brands = response;
+        },
+          error => {
+            this.brands = null;
           });
     }
   }
-teste(
-
-){
-  console.log("teset");
-}
 
   ngOnInit() {
-   
+
   }
 
 }
