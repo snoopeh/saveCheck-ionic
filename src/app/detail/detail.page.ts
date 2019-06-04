@@ -19,7 +19,6 @@ export class DetailPage implements OnInit {
     private route: ActivatedRoute,    
     public productService: ProductService,
     public brandService: BrandService,
-    private router: Router
   ) { 
 
   }

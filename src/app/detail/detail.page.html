@@ -2,15 +2,15 @@
   <ion-toolbar>
     <ion-title>
 
-      <ion-tab-button class="ion-float-left" tab="search">
+      <ion-tab-button  tab="search">
         <ion-icon size="large" name="ios-arrow-round-back"></ion-icon>
       </ion-tab-button>
 
     </ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content *ngIf="type == 1">
-  <ion-card class="welcome-card">
+<ion-content class=" background" *ngIf="type == 1">
+  <ion-card style="background-color: white;" class="welcome-card">
     <div *ngIf="product?.isVegan && product?.isVeganVerify" class="ion-float-right">
       <img style="width: 90px;" src="{{imageUrl}}/uploads/Vegan(2).png">
     </div>
@@ -40,19 +40,28 @@
           <p>Informações Peta.</p>
         </a> </div>
 
-      <ion-icon class="pointer" slot="icon-only" (click)="teste();" size="large" color="success" name="arrow-dropup">
-      </ion-icon>
-      <ion-text style="font-size:11px; color: #666; margin-left:3px;">{{product?.like.length}} </ion-text>
+     
 
-      <ion-icon class="pointer" slot="icon-only" size="large" color="medium" name="arrow-dropdown"></ion-icon>
-      <ion-text style="font-size:11px; color:#666; margin-left:3px;">{{product?.dislike.length}} </ion-text>
-      <br />
-      <div style="margin-top:5px;"> <a href="/likes/{{product?._id}}">
-          <ion-text style="font-size:11px;color:#666; ">
-            <p>Ver curtidas</p>
-          </ion-text>
-        </a> </div>
+        <ion-list style="margin-top:16px;" lines="none">
+            <ion-label>Ingredientes</ion-label>
+            <ion-item style="height: 25px;" *ngFor="let item of product?.ingredients">
+              <ion-label  class="pformat"> {{item.name}}</ion-label>
+            </ion-item >
+          </ion-list>
 
+          <ion-icon style="margin-top:16px;" class="pointer" slot="icon-only" (click)="teste();" size="large" color="success" name="arrow-dropup">
+            </ion-icon>
+            <ion-text style="font-size:11px; color: #666; margin-left:3px;">{{product?.like.length}} </ion-text>
+      
+            <ion-icon class="pointer" slot="icon-only" size="large" color="medium" name="arrow-dropdown"></ion-icon>
+            <ion-text style="font-size:11px; color:#666; margin-left:3px;">{{product?.dislike.length}} </ion-text>
+            <br />
+
+          <div style="margin-top:5px;"> <a href="/likes/{{product?._id}}">
+            <ion-text style="font-size:11px;color:#666; ">
+              <p>Ver curtidas</p>
+            </ion-text>
+          </a> </div>
     </ion-card-content>
   </ion-card>
 
@@ -70,8 +79,8 @@
   </ion-list>
 </ion-content>
 <!-- brand -->
-<ion-content *ngIf="type == 2">
-  <ion-card class="welcome-card">
+<ion-content class=" background" *ngIf="type == 2">
+  <ion-card  style="background-color: white;" class="welcome-card">
     <div *ngIf="brand?.isVegan " class="ion-float-right">
       <img style="width: 90px;" src="{{imageUrl}}/uploads/Vegan(2).png">
     </div>

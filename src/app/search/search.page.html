@@ -1,25 +1,24 @@
-<img style="width: 110px; " src="{{imageUrl}}/uploads/logo0.png">
 
-<!-- <ion-searchbar (ionInput)="searchItens($event)"></ion-searchbar> -->
-
-
-<!-- Searchbar with a cancel button and custom cancel button text -->
-<ion-searchbar placeholder="Buscar" showCancelButton cancelButtonText="Custom Cancel" (ionInput)="searchItens($event)">
-</ion-searchbar>
-
-
-
-<ion-content>
+<ion-header>
+    <ion-toolbar>
+      <ion-title>
+            <div style="text-align:center;"> <img style="width: 110px;" src="../assets/title.png"></div>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+<ion-content class=" swiper-no-swiping background">
+    <ion-searchbar  color="light" placeholder="Buscar" (ionInput)="searchItens($event)">
+      </ion-searchbar>
   <ion-list>
     <ion-item ion-item *ngFor="let item of products">
       <a href="/tabs/detail/{{item._id}}/1">
         <ion-thumbnail *ngIf="item.productImage != undefined" item-start>
-          <img src="{{imageUrl}}/{{item.productImage}}">
+          <img  src="{{imageUrl}}/{{item.productImage}}">
         </ion-thumbnail>
       </a>
       <a href="/tabs/detail/{{item._id}}/1">
         <ion-thumbnail *ngIf="item.productImage == undefined" item-start>
-          <img src="{{imageUrl}}/uploads/noimage.png">
+          <img src="../assets/imgnotav.png">
         </ion-thumbnail>
       </a>
       <ion-label class="ion-margin">
@@ -33,10 +32,10 @@
         <p>{{item.brand.name}}</p>
         <ion-icon class="pointer" slot="icon-only" (click)="teste();" size="large" color="success" name="arrow-dropup">
         </ion-icon>
-        <ion-text style="font-size:11px; color: #666; margin-left:3px;">{{item.like.length}} </ion-text>
-
+        
+        <ion-text class="pformat" style="margin-left:3px;">{{item.like.length}} </ion-text>
         <ion-icon class="pointer" slot="icon-only" size="large" color="medium" name="arrow-dropdown"></ion-icon>
-        <ion-text style="font-size:11px; color:#666; margin-left:3px;">{{item.dislike.length}} </ion-text>
+        <ion-text  class="pformat" style=" margin-left:3px;">{{item.dislike.length}} </ion-text>
         <br />
         <div style="margin-top:5px;"> <a href="/likes/{{item._id}}">
             <ion-text style="font-size:11px;color:#666; ">
@@ -45,11 +44,11 @@
           </a> </div>
       </ion-label>
 
-      <div *ngIf="item.isVegan && item.isVeganVerify">
-        <img style="width: 90px;" src="{{imageUrl}}/uploads/Vegan(2).png">
+      <div  class="ion-text-center" *ngIf="item.isVegan && item.isVeganVerify">
+        <img class="sizeImg" src="../assets/Vegan(2).png"><p class="pformat" style="margin-top:-8px;" >Vegan</p>
       </div>
-      <div *ngIf="item.isCrueltFree && item.isCrueltFreeVerify && !item.isVegan && item.isVeganVerify">
-        <img src="{{imageUrl}}/uploads/CF.png">
+      <div class="ion-text-center"  *ngIf="item.isCrueltFree && item.isCrueltFreeVerify && !item.isVegan && item.isVeganVerify">
+        <img class="sizeImg" src="../assets/CF.png">  <p class="pformat" style="margin-top: -8px;">CrueltyFree</p>
       </div>
     </ion-item>
 
@@ -64,7 +63,7 @@
 
       <a href="/tabs/detail/{{item._id}}/2">
         <ion-thumbnail *ngIf="item.brandImage == undefined" item-start>
-          <img src="{{imageUrl}}/uploads/noimage.png">
+          <img src="../assets/imgnotav.png">
         </ion-thumbnail>
       </a>
 
@@ -78,21 +77,21 @@
         <ion-icon class="pointer" slot="icon-only" (click)="teste();" size="large" color="success" name="arrow-dropup">
         </ion-icon>
 
-        <ion-text style="font-size:11px; color: #666; margin-left:3px;">{{item.like.length}} </ion-text>
+        <ion-text class="pformat" style="margin-left:3px;">{{item.like.length}} </ion-text>
         <ion-icon class="pointer" slot="icon-only" (click)="teste();" size="large" color="medium" name="arrow-dropdown">
         </ion-icon>
-        <ion-text style="font-size:11px; color:#666; margin-left:3px;">{{item.dislike.length}} </ion-text>
+        <ion-text class="pformat" style="margin-left:3px;">{{item.dislike.length}} </ion-text>
         <div style="margin-top:5px;"> <a href="/likes/{{item._id}}">
             <ion-text style="font-size:11px;color:#666; ">
               <p>Ver curtidas</p>
             </ion-text>
           </a> </div>
       </ion-label>
-      <div *ngIf="item.isVegan">
-        <img style="width: 90px;" src="{{imageUrl}}/uploads/Vegan(2).png">
+      <div class="ion-text-center"  *ngIf="item.isVegan">
+        <img class="sizeImg" src="{{imageUrl}}/uploads/Vegan(2).png"> <p class="pformat" style="margin-top: -8px;">Vegan</p>
       </div>
-      <div *ngIf="item.isCrueltFree ">
-        <img src="{{imageUrl}}/uploads/CF.png">
+      <div class="ion-text-center"  *ngIf="item.isCrueltFree ">
+        <img class="sizeImg" src="{{imageUrl}}/uploads/CF.png">  <p class="pformat" style="margin-top: -8px;">CrueltyFree</p>
       </div>
 
     </ion-item>

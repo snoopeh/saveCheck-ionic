@@ -11,6 +11,9 @@ import { AppComponent } from './app.component';
 import { ProductService } from 'src/services/domain/product.service';
 import { HttpClientModule } from '@angular/common/http'; 
 import { BrandService } from 'src/services/domain/brand.service';
+import { Keyboard } from '@ionic-native/keyboard/ngx';
+import { AuthService } from 'src/services/domain/auth.service';
+import { StorageService } from 'src/services/domain/storage.service';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -20,7 +23,10 @@ import { BrandService } from 'src/services/domain/brand.service';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     ProductService,
-    BrandService
+    BrandService,
+    Keyboard,
+    AuthService,
+    StorageService
   ],
   bootstrap: [AppComponent]
 })

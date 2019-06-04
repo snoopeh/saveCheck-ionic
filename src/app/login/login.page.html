@@ -1,0 +1,64 @@
+
+
+<ion-content class=" swiper-no-swiping background">
+  <div class="container top" [hidden]="keyboard.isVisible">
+    <div  style="text-align: center;" > <img style="width: 80px; margin-left:px;" src="/assets/Vegan(2).png"></div> 
+
+    <div class="bgclear">
+    <ion-segment (ionChange)="segmentChanged($event)" color="success" mode="ios" value="login">
+      <ion-segment-button  mode="ios" value="login">
+        <ion-label><b>Login</b></ion-label>
+      </ion-segment-button>
+      <ion-segment-button mode="ios" value="register">
+        <ion-label><b>Cadastro</b></ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+  </div>
+
+  <ion-slides>
+    <ion-slide>
+      <div class="slide-inner ion-padding">
+        <span><b>Login</b></span>
+
+
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input type="email" placeholder="E-mail" [(ngModel)]="userLogin.email" ></ion-input>
+        </ion-item>
+
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input type="password" placeholder="Senha"  [(ngModel)]="userLogin.password"></ion-input>
+        </ion-item>
+
+        <ion-button class="ion-margin-top" (click)="login()" color="success" expand="block">
+          Entrar
+        </ion-button>
+        <span  ><a class="alink"  href="/forgot-password" style="color:#0ec254; font-size: 13px; letter-spacing: .25px;" > Esqueceu a senha? </a></span>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="slide-inner ion-padding">
+        <span>Cadastro</span>
+
+        <ion-item class="ion-margin-top" lines="none">
+            <ion-input type="name" placeholder="Nome" [(ngModel)]="userRegister.name" ></ion-input>
+          </ion-item>
+
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input type="email" placeholder="E-mail" [(ngModel)]="userRegister.email"></ion-input>
+        </ion-item>
+
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input type="password" placeholder="Senha" [(ngModel)]="userRegister.password"></ion-input>
+        </ion-item>
+
+        <ion-button class="ion-margin-top" (click)="register()" color="success" expand="block">
+          Cadastrar
+        </ion-button>
+      </div>
+    
+    </ion-slide>
+  </ion-slides>
+  
+</ion-content>

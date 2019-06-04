@@ -1,5 +1,7 @@
 {
   "name": "safeCheck-ionic",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
