@@ -6,11 +6,11 @@
       </ion-title>
     </ion-toolbar>
   </ion-header>
-<ion-content class=" swiper-no-swiping background">
-    <ion-searchbar  color="light" placeholder="Buscar" (ionInput)="searchItens($event)">
-      </ion-searchbar>
-  <ion-list>
-    <ion-item ion-item *ngFor="let item of products">
+<ion-content  class=" swiper-no-swiping background">
+  
+    <ion-searchbar  color="light" placeholder="Buscar" (ionInput)="searchItens($event)"></ion-searchbar>
+  <ion-list *ngIf="products != undefined || brands != undefined">
+    <ion-item  ion-item *ngFor="let item of products">
       <a href="/tabs/detail/{{item._id}}/1">
         <ion-thumbnail *ngIf="item.productImage != undefined" item-start>
           <img  src="{{imageUrl}}/{{item.productImage}}">
@@ -29,7 +29,7 @@
           </ion-text>
         </a>
 
-        <p>{{item.brand.name}}</p>
+        <p>{{item.brand}}</p>
         <ion-icon class="pointer" slot="icon-only" (click)="teste();" size="large" color="success" name="arrow-dropup">
         </ion-icon>
         
@@ -53,7 +53,7 @@
     </ion-item>
 
     <!-- BRAND -->
-    <ion-item ion-item *ngFor="let item of brands">
+    <ion-item   ion-item *ngFor="let item of brands">
 
       <a href="/tabs/detail/{{item._id}}/2">
         <ion-thumbnail *ngIf="item.brandImage != undefined" item-start>

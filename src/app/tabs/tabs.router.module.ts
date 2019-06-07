@@ -43,6 +43,16 @@ const routes: Routes = [
           }
         ]
       },
+      {
+        path: 'new-product',
+        children: [
+          {
+            path: '',
+            loadChildren: '../new-product/new-product.module#NewProductPageModule'
+          }
+        ]
+      },
+      
       
     ]
   },

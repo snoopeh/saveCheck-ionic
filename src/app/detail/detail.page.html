@@ -1,12 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
 
-      <ion-tab-button  tab="search">
+    <ion-buttons slot="start">
+      <ion-tab-button tab="search">
         <ion-icon size="large" name="ios-arrow-round-back"></ion-icon>
       </ion-tab-button>
-
-    </ion-title>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content class=" background" *ngIf="type == 1">
@@ -22,7 +21,7 @@
       src="{{imageUrl}}/{{product?.productImage}}"></ion-img>
 
     <ion-card-header>
-      <ion-card-subtitle>{{product?.brand.name}}</ion-card-subtitle>
+      <ion-card-subtitle>{{product?.brand}}</ion-card-subtitle>
       <ion-card-title>{{product?.name}}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
@@ -40,28 +39,29 @@
           <p>Informações Peta.</p>
         </a> </div>
 
-     
 
-        <ion-list style="margin-top:16px;" lines="none">
-            <ion-label>Ingredientes</ion-label>
-            <ion-item style="height: 25px;" *ngFor="let item of product?.ingredients">
-              <ion-label  class="pformat"> {{item.name}}</ion-label>
-            </ion-item >
-          </ion-list>
 
-          <ion-icon style="margin-top:16px;" class="pointer" slot="icon-only" (click)="teste();" size="large" color="success" name="arrow-dropup">
-            </ion-icon>
-            <ion-text style="font-size:11px; color: #666; margin-left:3px;">{{product?.like.length}} </ion-text>
-      
-            <ion-icon class="pointer" slot="icon-only" size="large" color="medium" name="arrow-dropdown"></ion-icon>
-            <ion-text style="font-size:11px; color:#666; margin-left:3px;">{{product?.dislike.length}} </ion-text>
-            <br />
+      <ion-list style="margin-top:16px;" lines="none">
+        <ion-label>Ingredientes</ion-label>
+        <ion-item  *ngFor="let item of product?.ingredients">
+          <ion-label class="pformat"> {{item.name}}</ion-label>
+        </ion-item>
+      </ion-list>
 
-          <div style="margin-top:5px;"> <a href="/likes/{{product?._id}}">
-            <ion-text style="font-size:11px;color:#666; ">
-              <p>Ver curtidas</p>
-            </ion-text>
-          </a> </div>
+      <ion-icon style="margin-top:16px;" class="pointer" slot="icon-only" (click)="teste();" size="large"
+        color="success" name="arrow-dropup">
+      </ion-icon>
+      <ion-text style="font-size:11px; color: #666; margin-left:3px;">{{product?.like.length}} </ion-text>
+
+      <ion-icon class="pointer" slot="icon-only" size="large" color="medium" name="arrow-dropdown"></ion-icon>
+      <ion-text style="font-size:11px; color:#666; margin-left:3px;">{{product?.dislike.length}} </ion-text>
+      <br />
+
+      <div style="margin-top:5px;"> <a href="/likes/{{product?._id}}">
+          <ion-text style="font-size:11px;color:#666; ">
+            <p>Ver curtidas</p>
+          </ion-text>
+        </a> </div>
     </ion-card-content>
   </ion-card>
 
@@ -69,18 +69,38 @@
     <ion-list-header>
       <ion-label>Comentários</ion-label>
     </ion-list-header>
-    <ion-item ion-item *ngFor="let item of product?.comments">
-      <ion-thumbnail *ngIf="item.productImage == undefined" item-start>
-        <img src="{{imageUrl}}/uploads/nophoto.png">
-      </ion-thumbnail>
-      <ion-label>{{item.user.name}} <p>{{item.description}}</p>
-      </ion-label>
+
+    <ion-item>
+      <ion-textarea [(ngModel)]="comment.description" placeholder="Adicionar Comentário"></ion-textarea>
+      <ion-button class="ion-margin-top" (click)="addCommentsProduct()" color="success" expand="block">
+        Enviar
+      </ion-button>
+
     </ion-item>
   </ion-list>
+  <ion-card>
+    <ion-card-content  lines="none" style="background-color:white;" ion-item *ngFor="let item of product?.comments">
+      <ion-item lines="none">
+        <ion-thumbnail *ngIf="item.productImage == undefined" item-start>
+          <img src="{{imageUrl}}/uploads/nophoto.png">
+        </ion-thumbnail>
+        <ion-label>{{item.user.name}}  </ion-label>   
+         <ion-button class="ion-margin-top" *ngIf="item.user.email == usr.email" (click)="deleteCommentsProduct(item._id)" color="danger" expand="block">
+            Excluír
+          </ion-button>
+      </ion-item>
+      <ion-card-content>
+          <ion-label> <p>{{item.description}}</p> </ion-label> 
+      </ion-card-content>
+      <!-- <ion-label> <p>{{item.description}}</p> </ion-label> -->
+    </ion-card-content>
+
+  </ion-card>
+
 </ion-content>
 <!-- brand -->
 <ion-content class=" background" *ngIf="type == 2">
-  <ion-card  style="background-color: white;" class="welcome-card">
+  <ion-card style="background-color: white;" class="welcome-card">
     <div *ngIf="brand?.isVegan " class="ion-float-right">
       <img style="width: 90px;" src="{{imageUrl}}/uploads/Vegan(2).png">
     </div>
@@ -102,17 +122,17 @@
       </div>
 
       <div *ngIf="brand?.link != undefined"> <a href="{{brand?.link}}">
-          <p>Mais Informações sobre {{brand.name}}.</p>
+          <p>Mais Informações sobre {{brand.name}}</p>
         </a> </div>
       <div *ngIf="brand?.linkPeta != undefined"> <a href="{{brand?.linkPeta}}">
-          <p>Informações Peta.</p>
+          <p>Informações {{brand.name}} em Peta. </p>
         </a> </div>
 
-      <ion-icon class="pointer" slot="icon-only" (click)="teste();" size="large" color="success" name="arrow-dropup">
+      <ion-icon class="pointer" slot="icon-only" (click)="likeBrand()" size="large" color="success" name="arrow-dropup">
       </ion-icon>
       <ion-text style="font-size:11px; color: #666; margin-left:3px;">{{brand?.like.length}} </ion-text>
 
-      <ion-icon class="pointer" slot="icon-only" size="large" color="medium" name="arrow-dropdown"></ion-icon>
+      <ion-icon class="pointer" slot="icon-only" size="large" (click)="dislikeBrand()" color="medium" name="arrow-dropdown"></ion-icon>
       <ion-text style="font-size:11px; color:#666; margin-left:3px;">{{brand?.dislike.length}} </ion-text>
       <br />
       <div style="margin-top:5px;"> <a href="/likes/{{brand?._id}}">
@@ -128,12 +148,32 @@
     <ion-list-header>
       <ion-label>Comentários</ion-label>
     </ion-list-header>
-    <ion-item ion-item *ngFor="let item of brand?.comments">
-      <ion-thumbnail *ngIf="item.brandImage == undefined" item-start>
-        <img src="{{imageUrl}}/uploads/nophoto.png">
-      </ion-thumbnail>
-      <ion-label>{{item.user.name}} <p>{{item.description}}</p>
-      </ion-label>
+
+    <ion-item>
+      <ion-textarea [(ngModel)]="comment.description" placeholder="Adicionar Comentário"></ion-textarea>
+      <ion-button class="ion-margin-top" (click)="addCommentsBrand()" color="success" expand="block">
+        Enviar
+      </ion-button>
+
     </ion-item>
   </ion-list>
+  <ion-card>
+    <ion-card-content  lines="none" style="background-color:white;" ion-item *ngFor="let item of brand?.comments">
+      <ion-item lines="none">
+        <ion-thumbnail *ngIf="item.productImage == undefined" item-start>
+          <img src="{{imageUrl}}/uploads/nophoto.png">
+        </ion-thumbnail>
+        <ion-label>{{item.user.name}}  </ion-label>   
+         <ion-button class="ion-margin-top" *ngIf="item.user.email == usr.email" (click)="deleteCommentsBrand(item._id)" color="danger" expand="block">
+            Excluír
+          </ion-button>
+      </ion-item>
+      <ion-card-content>
+          <ion-label> <p>{{item.description}}</p> </ion-label> 
+      </ion-card-content>
+      <!-- <ion-label> <p>{{item.description}}</p> </ion-label> -->
+    </ion-card-content>
+
+  </ion-card>
+
 </ion-content>

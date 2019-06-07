@@ -14,6 +14,12 @@ import { BrandService } from 'src/services/domain/brand.service';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { AuthService } from 'src/services/domain/auth.service';
 import { StorageService } from 'src/services/domain/storage.service';
+
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { File } from '@ionic-native/file/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -26,7 +32,12 @@ import { StorageService } from 'src/services/domain/storage.service';
     BrandService,
     Keyboard,
     AuthService,
-    StorageService
+    StorageService,
+    FileTransfer, 
+    FileTransferObject,    
+    File,    
+    FilePath,   
+    Camera,
   ],
   bootstrap: [AppComponent]
 })

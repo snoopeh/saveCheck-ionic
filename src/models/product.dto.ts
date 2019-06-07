@@ -2,6 +2,7 @@ import { BrandDTO } from './brand.dto';
 import { IngredientsDTO } from './ingredients.dto';
 import { LikeDTO } from './like.dto';
 import { DislikeDTO } from './dislike.dto';
+import { CommentsDTO } from './comments.dto.';
 
 export interface ProductDTO {
     id : string;
@@ -20,5 +21,6 @@ export interface ProductDTO {
     like:[LikeDTO];
     dislike:[DislikeDTO];
     productImage:string;
+    comments: [CommentsDTO];
 
 }

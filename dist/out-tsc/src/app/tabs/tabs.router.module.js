@@ -8,24 +8,6 @@ var routes = [
         component: TabsPage,
         children: [
             {
-                path: 'tab1',
-                children: [
-                    {
-                        path: '',
-                        loadChildren: '../tab1/tab1.module#Tab1PageModule'
-                    }
-                ]
-            },
-            {
-                path: 'tab2',
-                children: [
-                    {
-                        path: '',
-                        loadChildren: '../tab2/tab2.module#Tab2PageModule'
-                    }
-                ]
-            },
-            {
                 path: 'about',
                 children: [
                     {
@@ -44,15 +26,37 @@ var routes = [
                 ]
             },
             {
-                path: '',
-                redirectTo: '/tabs/tab1',
-                pathMatch: 'full'
-            }
+                path: 'likes',
+                children: [
+                    {
+                        path: '',
+                        loadChildren: '../likes/likes.module#LikesPageModule'
+                    }
+                ]
+            },
+            {
+                path: 'detail',
+                children: [
+                    {
+                        path: '',
+                        loadChildren: '../detail/detail.module#DetailPageModule'
+                    }
+                ]
+            },
+            {
+                path: 'new-product',
+                children: [
+                    {
+                        path: '',
+                        loadChildren: '../new-product/new-product.module#NewProductPageModule'
+                    }
+                ]
+            },
         ]
     },
     {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/search',
         pathMatch: 'full'
     }
 ];

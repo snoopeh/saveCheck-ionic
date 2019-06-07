@@ -5,12 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ProuctPage } from './prouct.page';
+import { UploadModalPage } from './upload-modal.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: ProuctPage
+    component: UploadModalPage
   }
 ];
 
@@ -21,6 +21,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ProuctPage]
+  declarations: [UploadModalPage]
 })
-export class ProuctPageModule {}
+export class UploadModalPageModule {}

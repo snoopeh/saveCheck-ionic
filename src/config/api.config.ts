@@ -1,3 +1,3 @@
 export const API_CONFIG = {
-    baseUrl:"http://localhost:3000"
+    baseUrl:"https://safecheck-api.herokuapp.com/product"
 }

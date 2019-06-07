@@ -53,20 +53,6 @@ export class LoginPage implements OnInit {
     }
   }
 
-  // async login() {
-  //   await this.presentLoading();
-  //     await this.authService.login(this.userLogin)
-  //     .then((result: any) => {
-  //       this.presentToast('Usuário logado com sucesso. Token: ' + result.email);
-  //       this.router.navigate(['tabs/search'])
-  //     })
-  //     .catch((error: any) => {
-  //       this.presentToast('Erro ao efetuar login. Erro: ' + error.error.error);
-  //     });
-
-  //     this.loading.dismiss();
-  // }
-
   async register() {
     await this.presentLoading();
 

@@ -9,6 +9,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductService } from 'src/services/domain/product.service';
 import { HttpClientModule } from '@angular/common/http';
+import { BrandService } from 'src/services/domain/brand.service';
+import { Keyboard } from '@ionic-native/keyboard/ngx';
+import { AuthService } from 'src/services/domain/auth.service';
+import { StorageService } from 'src/services/domain/storage.service';
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -21,7 +25,11 @@ var AppModule = /** @class */ (function () {
                 StatusBar,
                 SplashScreen,
                 { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-                ProductService
+                ProductService,
+                BrandService,
+                Keyboard,
+                AuthService,
+                StorageService
             ],
             bootstrap: [AppComponent]
         })
