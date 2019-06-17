@@ -6,6 +6,7 @@ import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { API_CONFIG } from 'src/config/api.config';
 import { AuthService } from 'src/services/domain/auth.service';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -19,7 +20,8 @@ export class LoginPage implements OnInit {
   public userLogin: User = {};
   public userRegister: User = {};
   private loading: any;
-
+  public fGroup : FormGroup;
+  public fGroupLogin : FormGroup;
   constructor(
     //private authService: AuthService,
     private loadingCtrl: LoadingController,
@@ -27,8 +29,37 @@ export class LoginPage implements OnInit {
     public keyboard: Keyboard,
     private authService : AuthService,
     private router: Router,
-    
-  ) { }
+    private fBuilder: FormBuilder
+  ) {
+    this.fGroup = this.fBuilder.group({
+      'name': [null, Validators.compose([
+        Validators .required,
+        Validators.minLength(4),
+      ])],
+      'email':[null, Validators.compose([
+        Validators .required,
+        Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)
+      ])],
+      'password': [null, Validators.compose([
+        Validators .required,
+        Validators.minLength(4),
+      ])],
+    },{updateOn:'blur'});
+
+    this.fGroupLogin = this.fBuilder.group({
+      'email':[null, Validators.compose([
+        Validators .required,
+        Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)
+      ])],
+      'password': [null, Validators.compose([
+        Validators .required,
+        Validators.minLength(4),
+      ])],
+    },{updateOn:'blur'});
+
+   }
+   
+   
   imageUrl: string = API_CONFIG.baseUrl;
   ngOnInit() { }
 
@@ -42,7 +73,8 @@ export class LoginPage implements OnInit {
 
   async login() {
     await this.presentLoading();
-
+    this.userLogin.password = this.fGroupLogin.value.password; 
+    this.userLogin.email = this.fGroupLogin.value.email; 
     try {
       await this.authService.login(this.userLogin)
     } catch (error) {
@@ -55,7 +87,9 @@ export class LoginPage implements OnInit {
 
   async register() {
     await this.presentLoading();
-
+    this.userRegister.name = this.fGroup.value.name; 
+    this.userRegister.email = this.fGroup.value.email; 
+    this.userRegister.password = this.fGroup.value.password; 
     try {
       await this.authService.register(this.userRegister);
     } catch (error) {

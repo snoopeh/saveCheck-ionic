@@ -176,6 +176,28 @@ export class DetailPage implements OnInit {
     }
   }
 
+  async likeProduct() {
+    this.like.email = this.usr.email;
+    this.like.brandId = this.id;
+    this.Succes = true;
+    await this.presentLoading();
+
+    try {      
+        await this.productService.like(this.like)
+    } catch (error) {
+      if (error.status != 201)
+        this.Succes = false;
+      this.presentToast(error.error.error);
+    } finally {
+      if (this.Succes) {
+        this.fillItens();
+        this.presentToast("Você curtiu isso");
+        this.comment.description = null;
+      }
+      this.loading.dismiss();
+    }
+  }
+
   async dislikeBrand() {
     this.like.email = this.usr.email;
     this.like.brandId = this.id;
@@ -191,7 +213,27 @@ export class DetailPage implements OnInit {
     } finally {
       if (this.Succes) {
         this.fillItens();
-        this.presentToast("Você não curtiu isso");
+        this.comment.description = null;
+      }
+      this.loading.dismiss();
+    }
+  }
+
+  async dislikeProduct() {
+    this.like.email = this.usr.email;
+    this.like.brandId = this.id;
+    this.Succes = true;
+    await this.presentLoading();
+
+    try {      
+        await this.productService.dislike(this.like)
+    } catch (error) {
+      if (error.status != 201)
+        this.Succes = false;
+      this.presentToast(error.error.error);
+    } finally {
+      if (this.Succes) {
+        this.fillItens();
         this.comment.description = null;
       }
       this.loading.dismiss();

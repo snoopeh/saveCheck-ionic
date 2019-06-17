@@ -13,8 +13,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { File,FileEntry } from '@ionic-native/file/ngx';
 import { componentFactoryName } from '@angular/compiler';
-import { UploadModalPage } from '../upload-modal/upload-modal.page';
-
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-new-product',
   templateUrl: './new-product.page.html',
@@ -22,6 +21,8 @@ import { UploadModalPage } from '../upload-modal/upload-modal.page';
 })
 export class NewProductPage implements OnInit {
   @ViewChild(IonSlides) slides: IonSlides;
+  public fGroupProduct : FormGroup;
+  public fGroupBrand : FormGroup;
   constructor(
     public keyboard: Keyboard,
     private loadingCtrl: LoadingController,
@@ -35,14 +36,29 @@ export class NewProductPage implements OnInit {
     private filePath: FilePath,
     private file: File,
     private modalCtrl: ModalController,
+    private fBuilder: FormBuilder
 
-    private uploadModalPage : UploadModalPage
-  ) { }
+  ) {
+    this.fGroupProduct = this.fBuilder.group({
+      'name': [null, Validators.compose([
+        Validators .required,
+        Validators.minLength(4),
+      ])],
+    },{updateOn:'blur'});
+
+    this.fGroupBrand = this.fBuilder.group({
+       'name': [null, Validators.compose([
+        Validators .required,
+        Validators.minLength(4),
+      ])],
+    },{updateOn:'blur'});
+   }
   private loading: any;
   public product: Product = {};
   public brand: Brand = {};
   private info: String;
   private Succes : Boolean;
+  public fGroup : FormGroup;
   ngOnInit() {
   }
   segmentChanged(event: any) {
@@ -55,60 +71,62 @@ export class NewProductPage implements OnInit {
 
 
 
-  async presentActionSheet(){
-   let actionSheet = await this.actionSheetCtrl.create({
-    header: 'Selecione a fonte da imagem',
-    buttons: [{
-      text: 'Galeria',
-      role: 'destructive',
-      icon: 'trash',
-      handler: () => {
-        this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
-      }
-    }, {
-      text: 'Camera',
-      icon: 'share',
-      handler: () => {
-        this.takePicture(this.camera.PictureSourceType.CAMERA);
-      }
-    }, {
-      text:'Cancelar',
-      role:'cancel'
-    }]
-  });
-  await actionSheet.present();
-}
+//   async presentActionSheet(){
+//    let actionSheet = await this.actionSheetCtrl.create({
+//     header: 'Selecione a fonte da imagem',
+//     buttons: [{
+//       text: 'Galeria',
+//       role: 'destructive',
+//       icon: 'trash',
+//       handler: () => {
+//         this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+//       }
+//     }, {
+//       text: 'Camera',
+//       icon: 'share',
+//       handler: () => {
+//         this.takePicture(this.camera.PictureSourceType.CAMERA);
+//       }
+//     }, {
+//       text:'Cancelar',
+//       role:'cancel'
+//     }]
+//   });
+//   await actionSheet.present();
+// }
  
-async takePicture(sourceType) {
-  // Create options for the Camera Dialog
-  var options = {
-    quality: 100,
-    destinationType: this.camera.DestinationType.FILE_URI,
-    sourceType: sourceType,
-    saveToPhotoAlbum: false,
-    correctOrientation: true
-  };
+// async takePicture(sourceType) {
+//   // Create options for the Camera Dialog
+//   var options = {
+//     quality: 100,
+//     destinationType: this.camera.DestinationType.FILE_URI,
+//     sourceType: sourceType,
+//     saveToPhotoAlbum: false,
+//     correctOrientation: true
+//   };
 
-   this.camera.getPicture(options).then(async (imagePath) => {
+//    this.camera.getPicture(options).then(async (imagePath) => {
    
-      let modal =await this.modalCtrl.create({
-        component: UploadModalPage, 
-        componentProps:{data: imagePath}
-      });
-
-    modal.present();
-  }, (err) => {
-    console.log('Error: ', err);
-  });
-}
+//     this.productService.uploadImage(imagePath, 'test').then(res => {
+      
+//     }, err => {
+//       this.dismiss();
+//     });
+//   }
+//     modal.present();
+//   }, (err) => {
+//     console.log('Error: ', err);
+//   });
+// }
 
 
 
   async newProduct() {
     await this.presentLoading();
    this.Succes = true;
+    this.product.name =  this.fGroupProduct.value.name; 
     try {
-      //await this.productService.newProduct(this.product)
+      await this.productService.newProduct(this.product)
     } catch (error) {
       if(error.status != 201)
         this.Succes = false;
@@ -123,6 +141,7 @@ async takePicture(sourceType) {
   }
   async newBrand() {
     await this.presentLoading();
+    this.brand.name =  this.fGroupBrand.value.name; 
     this.Succes = true;
     try {
       await this.brandService.newBrand(this.brand)

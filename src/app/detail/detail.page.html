@@ -1,11 +1,17 @@
 <ion-header>
   <ion-toolbar>
 
-    <ion-buttons slot="start">
-      <ion-tab-button tab="search">
+    <ion-buttons routerLink="/login"  slot="start">
+      <ion-tab-button expand="block" routerLink="/" routerDirection="login" >
         <ion-icon size="large" name="ios-arrow-round-back"></ion-icon>
+        
       </ion-tab-button>
     </ion-buttons>
+    <div>
+    <ion-title>
+      <div style="margin-left:2em;"> <img style="width: 110px;" src="../assets/title.png"></div>
+    </ion-title>
+  </div>
   </ion-toolbar>
 </ion-header>
 <ion-content class=" background" *ngIf="type == 1">
@@ -48,20 +54,14 @@
         </ion-item>
       </ion-list>
 
-      <ion-icon style="margin-top:16px;" class="pointer" slot="icon-only" (click)="teste();" size="large"
+      <ion-icon style="margin-top:16px;" class="pointer" slot="icon-only" (click)="likeProduct()"  size="large"
         color="success" name="arrow-dropup">
       </ion-icon>
       <ion-text style="font-size:11px; color: #666; margin-left:3px;">{{product?.like.length}} </ion-text>
 
-      <ion-icon class="pointer" slot="icon-only" size="large" color="medium" name="arrow-dropdown"></ion-icon>
+      <ion-icon class="pointer" slot="icon-only" size="large" color="medium" (click)="dislikeProduct()" name="arrow-dropdown"></ion-icon>
       <ion-text style="font-size:11px; color:#666; margin-left:3px;">{{product?.dislike.length}} </ion-text>
       <br />
-
-      <div style="margin-top:5px;"> <a href="/likes/{{product?._id}}">
-          <ion-text style="font-size:11px;color:#666; ">
-            <p>Ver curtidas</p>
-          </ion-text>
-        </a> </div>
     </ion-card-content>
   </ion-card>
 
@@ -135,11 +135,6 @@
       <ion-icon class="pointer" slot="icon-only" size="large" (click)="dislikeBrand()" color="medium" name="arrow-dropdown"></ion-icon>
       <ion-text style="font-size:11px; color:#666; margin-left:3px;">{{brand?.dislike.length}} </ion-text>
       <br />
-      <div style="margin-top:5px;"> <a href="/likes/{{brand?._id}}">
-          <ion-text style="font-size:11px;color:#666; ">
-            <p>Ver curtidas</p>
-          </ion-text>
-        </a> </div>
 
     </ion-card-content>
   </ion-card>
@@ -168,7 +163,7 @@
             Excluír
           </ion-button>
       </ion-item>
-      <ion-card-content>
+      <ion-card-content >
           <ion-label> <p>{{item.description}}</p> </ion-label> 
       </ion-card-content>
       <!-- <ion-label> <p>{{item.description}}</p> </ion-label> -->

@@ -30,18 +30,14 @@
         </a>
 
         <p>{{item.brand}}</p>
-        <ion-icon class="pointer" slot="icon-only" (click)="teste();" size="large" color="success" name="arrow-dropup">
+        <ion-icon class="pointer" slot="icon-only" (click)="likeProduct(item._id)"  size="large" color="success" name="arrow-dropup">
         </ion-icon>
         
         <ion-text class="pformat" style="margin-left:3px;">{{item.like.length}} </ion-text>
-        <ion-icon class="pointer" slot="icon-only" size="large" color="medium" name="arrow-dropdown"></ion-icon>
+        <ion-icon class="pointer" slot="icon-only" size="large" (click)="dislikeProduct(item._id)"  color="medium" name="arrow-dropdown"></ion-icon>
         <ion-text  class="pformat" style=" margin-left:3px;">{{item.dislike.length}} </ion-text>
         <br />
-        <div style="margin-top:5px;"> <a href="/likes/{{item._id}}">
-            <ion-text style="font-size:11px;color:#666; ">
-              <p>Ver curtidas</p>
-            </ion-text>
-          </a> </div>
+       
       </ion-label>
 
       <div  class="ion-text-center" *ngIf="item.isVegan && item.isVeganVerify">
@@ -74,18 +70,14 @@
           </ion-text>
         </a>
         <p></p>
-        <ion-icon class="pointer" slot="icon-only" (click)="teste();" size="large" color="success" name="arrow-dropup">
+        <ion-icon class="pointer" slot="icon-only" (click)="likeBrand(item._id);" size="large" color="success" name="arrow-dropup">
         </ion-icon>
 
         <ion-text class="pformat" style="margin-left:3px;">{{item.like.length}} </ion-text>
-        <ion-icon class="pointer" slot="icon-only" (click)="teste();" size="large" color="medium" name="arrow-dropdown">
+        <ion-icon class="pointer" slot="icon-only" (click)="dislikeBrand(item._id)"  size="large" color="medium" name="arrow-dropdown">
         </ion-icon>
         <ion-text class="pformat" style="margin-left:3px;">{{item.dislike.length}} </ion-text>
-        <div style="margin-top:5px;"> <a href="/likes/{{item._id}}">
-            <ion-text style="font-size:11px;color:#666; ">
-              <p>Ver curtidas</p>
-            </ion-text>
-          </a> </div>
+        
       </ion-label>
       <div class="ion-text-center"  *ngIf="item.isVegan">
         <img class="sizeImg" src="{{imageUrl}}/uploads/Vegan(2).png"> <p class="pformat" style="margin-top: -8px;">Vegan</p>
@@ -96,4 +88,10 @@
 
     </ion-item>
   </ion-list>
+  <ion-card-content routerLink="/tabs/new-product" routerDirection="new-product"  style="background-color: white; color: black;" *ngIf="brands == undefined && products == undefined && searched == true">
+  <div style="width:90%;  font-style: italic;" >
+    Ops! o produto nao foi encontrado, mas não se preocupe Guardamos a busca feita e em breve estaremos adicionando na nossa base de dados.
+    Caso queira agilizar esse processo para cadastra-lo clique aqui.  
+  </div>
+</ion-card-content>
 </ion-content>

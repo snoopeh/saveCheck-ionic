@@ -5,6 +5,10 @@ import { API_CONFIG } from 'src/config/api.config';
 import { Router } from '@angular/router';
 import { BrandService } from 'src/services/domain/brand.service';
 import { BrandDTO } from 'src/models/brand.dto';
+import { Like } from '../interfaces/like';
+import { Comments } from '../interfaces/comments';
+import { LoadingController, ToastController } from '@ionic/angular';
+import { StorageService } from 'src/services/domain/storage.service';
 
 @Component({
   selector: 'app-search',
@@ -12,40 +16,148 @@ import { BrandDTO } from 'src/models/brand.dto';
   styleUrls: ['./search.page.scss'],
 })
 export class SearchPage implements OnInit {
-
+  public like: Like = {};
+  private searched: Boolean;
   constructor(
     public productService: ProductService,
     public brandService: BrandService,
-    private router: Router
+    private router: Router,
+    private loadingCtrl: LoadingController,
+    private toastCtrl: ToastController,
+    private storage: StorageService,
 
   ) { }
 
   imageUrl: string = API_CONFIG.baseUrl;
   id;
   products: ProductDTO[];
+  usr : any;
   brands: BrandDTO[];
-  searchItens(ev) {
+  search: any;
+  public comment: Comments = {};
+  private Succes: Boolean;
+  private loading: any;
+  async searchItens(ev) {
+    
+    this.search = ev;
     var val = ev.target.value;
     if (val.length > 5) {
-      this.productService.findByName(val)
+     await this.productService.findByName(val)
         .subscribe(response => {
           this.products = response;
+          return true;
         },
           error => {
             this.products = null;
           });
-      this.brandService.findByName(val)
+     await this.brandService.findByName(val)
         .subscribe(response => {
           this.brands = response;
         },
           error => {
             this.brands = null;
           });
+       this.searched =true;
+    }
+
+  }
+  async likeBrand(id) {
+    this.like.email = this.usr.email;
+    this.like.brandId = id;
+    this.Succes = true;
+    await this.presentLoading();
+
+    try {      
+        await this.brandService.like(this.like)
+    } catch (error) {
+      if (error.status != 201)
+        this.Succes = false;
+      this.presentToast(error.error.error);
+    } finally {
+      if (this.Succes) {
+        this.searchItens(this.search);
+        this.presentToast("Você curtiu isso");
+        this.comment.description = null;
+      }
+      this.loading.dismiss();
     }
   }
 
-  ngOnInit() {
+  async likeProduct(id) {
+    this.like.email = this.usr.email;
+    this.like.brandId = id;
+    this.Succes = true;
+    await this.presentLoading();
 
+    try {      
+        await this.productService.like(this.like)
+    } catch (error) {
+      if (error.status != 201)
+        this.Succes = false;
+      this.presentToast(error.error.error);
+    } finally {
+      if (this.Succes) {
+        this.searchItens(this.search);
+        this.presentToast("Você curtiu isso");
+        this.comment.description = null;
+      }
+      this.loading.dismiss();
+    }
+  }
+
+  async dislikeBrand(id) {
+    this.like.email = this.usr.email;
+    this.like.brandId = id;
+    this.Succes = true;
+    await this.presentLoading();
+
+    try {      
+        await this.brandService.dislike(this.like)
+    } catch (error) {
+      if (error.status != 201)
+        this.Succes = false;
+      this.presentToast(error.error.error);
+    } finally {
+      if (this.Succes) {
+        this.searchItens(this.search);
+        this.comment.description = null;
+      }
+      this.loading.dismiss();
+    }
+  }
+
+  async dislikeProduct(id) {
+    this.like.email = this.usr.email;
+    this.like.brandId = id;
+    this.Succes = true;
+    await this.presentLoading();
+
+    try {      
+        await this.productService.dislike(this.like)
+    } catch (error) {
+      if (error.status != 201)
+        this.Succes = false;
+      this.presentToast(error.error.error);
+    } finally {
+      if (this.Succes) {
+        this.searchItens(this.search);
+        this.comment.description = null;
+      }
+      this.loading.dismiss();
+    }
+  }
+
+  async presentLoading() {
+    this.loading = await this.loadingCtrl.create({ message: 'Aguarde...' });
+    return this.loading.present();
+  }
+
+  async presentToast(message: string) {
+    const toast = await this.toastCtrl.create({ message, duration: 2000 });
+    toast.present();
+  }
+  ngOnInit() {
+    this.usr = this.storage.getLocalUser();
   }
 
 }

@@ -5,12 +5,14 @@ import { ProductDTO } from 'src/models/product.dto';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/interfaces/product';
 import { Comments } from 'src/app/interfaces/comments';
+import { Like } from 'src/app/interfaces/like';
+import { FileTransfer, FileUploadOptions, FileTransferObject} from '@ionic-native/file-transfer/ngx';
 //import {FileTransfer,FileUploadOptions} from '@ionic-native/file-transfer';
 //import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ProductService {
-    constructor(public http:HttpClient,)
+    constructor(public http:HttpClient, private transfer: FileTransfer)
     {
     
     }
@@ -58,4 +60,49 @@ export class ProductService {
               });
           });
     }
+
+    like(like: Like){
+        return new Promise((resolve, reject) => {
+            this.http.put(`${API_CONFIG.baseUrl}/product/like/`+like.brandId, like)
+            .subscribe((result: any) => {
+                resolve(result);
+              },(error) => {
+                console.log("ERRO na requisiçao",error.error);
+                reject(error);
+              });
+          });
+    }
+
+    dislike(like: Like){
+        return new Promise((resolve, reject) => {
+            this.http.put(`${API_CONFIG.baseUrl}/product/dislike/`+like.brandId, like)
+            .subscribe((result: any) => {
+                resolve(result);
+              },(error) => {
+                console.log("ERRO na requisiçao",error.error);
+                reject(error);
+              });
+          });
+    }
+
+    uploadImage(img, desc) {
+ 
+        // Destination URL
+        let url = API_CONFIG.baseUrl +'/product' ;
+     
+        // File for Upload
+        var targetPath = img;
+     
+        var options: FileUploadOptions = {
+          fileKey: 'productImage',
+          chunkedMode: false,
+          mimeType: 'multipart/form-data',
+          params: { 'desc': desc }
+        };
+     
+        const fileTransfer: FileTransferObject = this.transfer.create();
+     
+        // Use the FileTransfer to upload the image
+        return fileTransfer.upload(targetPath, url, options);
+      }
 }
