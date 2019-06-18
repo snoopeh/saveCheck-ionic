@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/services/domain/auth.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-about',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutPage implements OnInit {
 
-  constructor() { }
+
+  constructor(
+    private authService : AuthService,
+    public navCtr :NavController
+  ) { }
 
   ngOnInit() {
   }
 
+  logout(){
+    this.authService.logout();
+    this.navCtr.navigateRoot('/login');
+  }
 }
