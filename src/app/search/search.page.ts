@@ -18,6 +18,7 @@ import { StorageService } from 'src/services/domain/storage.service';
 export class SearchPage implements OnInit {
   public like: Like = {};
   private searched: Boolean;
+  
   constructor(
     public productService: ProductService,
     public brandService: BrandService,
