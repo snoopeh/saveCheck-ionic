@@ -17,8 +17,9 @@ import { StorageService } from 'src/services/domain/storage.service';
 
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
-import { FilePath } from '@ionic-native/file-path/ngx';
+
 import { Camera } from '@ionic-native/camera/ngx';
+import { Deeplinks } from '@ionic-native/deeplinks/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,7 +37,7 @@ import { Camera } from '@ionic-native/camera/ngx';
     FileTransfer, 
     FileTransferObject,    
     File,    
-    FilePath,   
+    Deeplinks,
     Camera,
   ],
   bootstrap: [AppComponent]

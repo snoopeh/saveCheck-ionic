@@ -10,7 +10,7 @@ import { BrandService } from 'src/services/domain/brand.service';
 
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { FilePath } from '@ionic-native/file-path/ngx';
+
 import { File,FileEntry } from '@ionic-native/file/ngx';
 import { componentFactoryName } from '@angular/compiler';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -33,7 +33,6 @@ export class NewProductPage implements OnInit {
     private actionSheetCtrl: ActionSheetController,
     private transfer: FileTransfer,
     private camera: Camera,
-    private filePath: FilePath,
     private file: File,
     private modalCtrl: ModalController,
     private fBuilder: FormBuilder

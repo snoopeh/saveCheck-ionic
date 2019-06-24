@@ -42,8 +42,9 @@
 
       <div  class="ion-text-center" *ngIf="item.isVegan && item.isVeganVerify">
         <img class="sizeImg" src="../assets/Vegan(2).png"><p class="pformat" style="margin-top:-8px;" >Vegan</p>
+        <img class="sizeImg" src="../assets/CF.png">  <p class="pformat" style="margin-top: -8px;">CrueltyFree</p>
       </div>
-      <div class="ion-text-center"  *ngIf="item.isCrueltFree && item.isCrueltFreeVerify && !item.isVegan && item.isVeganVerify">
+      <div class="ion-text-center"  *ngIf="item.isCrueltFree && !item.isVegan">
         <img class="sizeImg" src="../assets/CF.png">  <p class="pformat" style="margin-top: -8px;">CrueltyFree</p>
       </div>
     </ion-item>
@@ -80,10 +81,11 @@
         
       </ion-label>
       <div class="ion-text-center"  *ngIf="item.isVegan">
-        <img class="sizeImg" src="{{imageUrl}}/uploads/Vegan(2).png"> <p class="pformat" style="margin-top: -8px;">Vegan</p>
+        <img class="sizeImg" src="../assets/Vegan(2).png"><p class="pformat" style="margin-top:-8px;" >Vegan</p>
+        <img class="sizeImg" src="../assets/CF.png">  <p class="pformat" style="margin-top: -8px;">CrueltyFree</p>
       </div>
-      <div class="ion-text-center"  *ngIf="item.isCrueltFree ">
-        <img class="sizeImg" src="{{imageUrl}}/uploads/CF.png">  <p class="pformat" style="margin-top: -8px;">CrueltyFree</p>
+      <div class="ion-text-center"  *ngIf="item.isCrueltyFree && !item.isVegan">
+        <img class="sizeImg" src="../assets/CF.png">  <p class="pformat" style="margin-top: -8px;">CrueltyFree</p>
       </div>
 
     </ion-item>

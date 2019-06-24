@@ -41,7 +41,7 @@ export class SearchPage implements OnInit {
     
     this.search = ev;
     var val = ev.target.value;
-    if (val.length > 5) {
+    if (val.length > 4) {
      await this.productService.findByName(val)
         .subscribe(response => {
           this.products = response;
